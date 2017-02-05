@@ -1,0 +1,74 @@
+﻿@model IT.Models.Model
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Model</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.modelName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modelName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.brandID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.brandID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.brandName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.brandName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.modelID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

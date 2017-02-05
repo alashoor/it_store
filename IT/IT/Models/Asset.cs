@@ -3,9 +3,10 @@ using System.Data.Entity;
 
 namespace IT.Models
 {
-    public class Asset
+    public class Asset : Model
     {
 
+        public int assetID { get; set; }
         public string serialNumber { get; set; }
         public string barcode { get; set; }
         public string serviceTag { get; set; }
