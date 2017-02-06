@@ -7,7 +7,9 @@ namespace IT.Models
     public class Person
     {
 
-        public int ID { get; set; } //Or should it be a String? 
+        public int ID { get; set; }
+        [Display(Name = "Employee ID")]
+        public int employeeID { get; set; }
         [Display(Name = "Name")]
         public string name { get; set; }
         [Display(Name = "Title")]
