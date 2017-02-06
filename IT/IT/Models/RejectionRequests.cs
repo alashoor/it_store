@@ -6,7 +6,7 @@ namespace IT.Models
     public class RejectionRequests
     {
 
-        public int rejectionID { get; set; }
+        public int rejectionRequestsID { get; set; }
         public string serialNumber { get; set; }
         public string barcode { get; set; }
         public string serviceTag { get; set; }

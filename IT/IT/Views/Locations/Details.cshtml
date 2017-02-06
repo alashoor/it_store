@@ -1,0 +1,90 @@
+﻿@model IT.Models.Location
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Location</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.locationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.locationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.costCenter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.costCenter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.unit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.unit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.businessArea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.businessArea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ladiesSection)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ladiesSection)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.suppurtNodeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.suppurtNodeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.accessPermission)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.accessPermission)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.distanceFromSupportNode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.distanceFromSupportNode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.classification)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.classification)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.locationID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

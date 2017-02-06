@@ -1,0 +1,138 @@
+﻿@model IT.Models.Asset
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Asset</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.serialNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serialNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.barcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.barcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.serviceTag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serviceTag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.costCenter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.costCenter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.timeStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.timeStamp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modelID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modelID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modelName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modelName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.brandID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.brandID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.brandName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.brandName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.assetID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

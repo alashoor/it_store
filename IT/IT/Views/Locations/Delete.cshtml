@@ -1,0 +1,96 @@
+﻿@model IT.Models.Location
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Location</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.locationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.locationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.costCenter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.costCenter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.unit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.unit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.businessArea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.businessArea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ladiesSection)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ladiesSection)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.suppurtNodeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.suppurtNodeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.accessPermission)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.accessPermission)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.distanceFromSupportNode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.distanceFromSupportNode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.classification)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.classification)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

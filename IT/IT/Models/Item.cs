@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 
 namespace IT.Models
@@ -7,6 +8,7 @@ namespace IT.Models
     {
 
         public int itemID { get; set; }
+        [Display(Name = "Item Name")]
         public string itemName { get; set; }
 
     }

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<IT.Models.Location>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.locationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.costCenter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.unit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.businessArea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ladiesSection)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.suppurtNodeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.accessPermission)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.distanceFromSupportNode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.classification)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.locationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.costCenter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.unit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.businessArea)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ladiesSection)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.suppurtNodeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.accessPermission)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.distanceFromSupportNode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.classification)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.locationID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.locationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.locationID })
+        </td>
+    </tr>
+}
+
+</table>
