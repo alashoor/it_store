@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IT.Models.RejectionRequests>
+﻿@model IEnumerable<IT.Models.RejectionRequest>
 
 @{
     ViewBag.Title = "Index";
@@ -8,9 +8,22 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+
+    @using (Html.BeginForm("Index", "RejectionRequests", FormMethod.Get))
+    {
+    <p>
+        Cost Center: @Html.DropDownList("rejectionRequestsCostCenter", "All")
+        Serial Number or Barcode or Service Tag: @Html.TextBox("SearchString")
+        <input type="submit" value="Filter" />
+    </p>
+    }
+
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Location.costCenter)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.serialNumber)
         </th>
@@ -27,16 +40,16 @@
             @Html.DisplayNameFor(model => model.justification)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.costCenter)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.timeStamp)
+            @Html.DisplayNameFor(model => model.timestamp)
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location.costCenter)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.serialNumber)
         </td>
@@ -53,10 +66,7 @@
             @Html.DisplayFor(modelItem => item.justification)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.costCenter)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.timeStamp)
+            @Html.DisplayFor(modelItem => item.timestamp)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.rejectionRequestsID }) |

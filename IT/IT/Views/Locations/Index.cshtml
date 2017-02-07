@@ -8,14 +8,24 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+
+    @using (Html.BeginForm("Index", "Locations", FormMethod.Get))
+    {
+    <p>
+        Cost Center: @Html.DropDownList("locationCostCenter", "All")
+        Cost Center Name: @Html.TextBox("SearchString")
+        <input type="submit" value="Filter" />
+    </p>
+    }
+
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.locationName)
+            @Html.DisplayNameFor(model => model.costCenter)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.costCenter)
+            @Html.DisplayNameFor(model => model.locationName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.unit)
@@ -27,7 +37,7 @@
             @Html.DisplayNameFor(model => model.ladiesSection)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.suppurtNodeName)
+            @Html.DisplayNameFor(model => model.uppurtNodeName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.accessPermission)
@@ -44,10 +54,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.locationName)
+            @Html.DisplayFor(modelItem => item.costCenter)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.costCenter)
+            @Html.DisplayFor(modelItem => item.locationName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.unit)
@@ -59,7 +69,7 @@
             @Html.DisplayFor(modelItem => item.ladiesSection)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.suppurtNodeName)
+            @Html.DisplayFor(modelItem => item.uppurtNodeName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.accessPermission)

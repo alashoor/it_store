@@ -29,5 +29,19 @@ namespace IT.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<IT.Models.Brand> Brands { get; set; }
+
+        public System.Data.Entity.DbSet<IT.Models.Item> Items { get; set; }
+
+        public System.Data.Entity.DbSet<IT.Models.Model> Models { get; set; }
+
+        public System.Data.Entity.DbSet<IT.Models.Asset> Assets { get; set; }
+
+        public System.Data.Entity.DbSet<IT.Models.Location> Locations { get; set; }
+
+        public System.Data.Entity.DbSet<IT.Models.Person> People { get; set; }
+
+        public System.Data.Entity.DbSet<IT.Models.RejectionRequest> RejectionRequests { get; set; }
     }
 }

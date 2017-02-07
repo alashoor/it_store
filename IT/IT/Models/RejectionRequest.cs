@@ -6,15 +6,12 @@ namespace IT.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Asset")]
-    public partial class Asset
+    public partial class RejectionRequest
     {
         [Key]
-        public int assetlID { get; set; }
+        public int rejectionRequestsID { get; set; }
 
-        public int? modelID { get; set; }
-
-        [Display(Name = "SerialNumber")]
+        [Display(Name = "Serial Number")]
         [StringLength(50)]
         public string serialNumber { get; set; }
 
@@ -22,19 +19,18 @@ namespace IT.Models
         [StringLength(50)]
         public string barcode { get; set; }
 
-        [Display(Name = "SeviceTag")]
+        [Display(Name = "Service Tag")]
         [StringLength(50)]
-        public string seviceTag { get; set; }
+        public string serviceTag { get; set; }
 
-        [Display(Name = "Status")]
+        [Display(Name = "Business Area")]
         [StringLength(50)]
-        public string status { get; set; }
+        public string businessArea { get; set; }
 
-        [Display(Name = "Remarks")]
+        [Display(Name = "Justification")]
         [StringLength(50)]
-        public string remarks { get; set; }
+        public string justification { get; set; }
 
-        [Display(Name = "Cost Center")]
         public int? locationID { get; set; }
 
         [Display(Name = "Timestamp")]
@@ -44,7 +40,5 @@ namespace IT.Models
         public DateTime? timestamp { get; set; }
 
         public virtual Location Location { get; set; }
-
-        public virtual Model Model { get; set; }
     }
 }

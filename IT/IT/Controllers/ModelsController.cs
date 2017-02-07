@@ -12,12 +12,20 @@ namespace IT.Controllers
 {
     public class ModelsController : Controller
     {
-        private ModelDBContext db = new ModelDBContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Models
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.Model.ToList());
+            var model = from m in db.Models
+                       select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(s => s.modelName.Contains(searchString));
+            }
+
+            return View(model);
         }
 
         // GET: Models/Details/5
@@ -27,7 +35,7 @@ namespace IT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Model model = db.Model.Find(id);
+            Model model = db.Models.Find(id);
             if (model == null)
             {
                 return HttpNotFound();
@@ -38,6 +46,7 @@ namespace IT.Controllers
         // GET: Models/Create
         public ActionResult Create()
         {
+            ViewBag.itemID = new SelectList(db.Items, "itemID", "itemName");
             return View();
         }
 
@@ -46,15 +55,16 @@ namespace IT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "modelID,modelName,weight,price,itemID,itemName,brandID,brandName")] Model model)
+        public ActionResult Create([Bind(Include = "modelID,itemID,modelName,weight,price")] Model model)
         {
             if (ModelState.IsValid)
             {
-                db.Model.Add(model);
+                db.Models.Add(model);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.itemID = new SelectList(db.Items, "itemID", "itemName", model.itemID);
             return View(model);
         }
 
@@ -65,11 +75,12 @@ namespace IT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Model model = db.Model.Find(id);
+            Model model = db.Models.Find(id);
             if (model == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.itemID = new SelectList(db.Items, "itemID", "itemName", model.itemID);
             return View(model);
         }
 
@@ -78,7 +89,7 @@ namespace IT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "modelID,modelName,weight,price,itemID,itemName,brandID,brandName")] Model model)
+        public ActionResult Edit([Bind(Include = "modelID,itemID,modelName,weight,price")] Model model)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +97,7 @@ namespace IT.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.itemID = new SelectList(db.Items, "itemID", "itemName", model.itemID);
             return View(model);
         }
 
@@ -96,7 +108,7 @@ namespace IT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Model model = db.Model.Find(id);
+            Model model = db.Models.Find(id);
             if (model == null)
             {
                 return HttpNotFound();
@@ -109,8 +121,8 @@ namespace IT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Model model = db.Model.Find(id);
-            db.Model.Remove(model);
+            Model model = db.Models.Find(id);
+            db.Models.Remove(model);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

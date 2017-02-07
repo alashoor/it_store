@@ -12,12 +12,37 @@ namespace IT.Controllers
 {
     public class LocationsController : Controller
     {
-        private LocationDBContext db = new LocationDBContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Locations
-        public ActionResult Index()
+        public ActionResult Index(string costCentertxt, string searchString)
         {
-            return View(db.Locations.ToList());
+            var costCenterLst = new List<string>();
+
+            var costCenterQry = from d in db.Locations
+                                orderby d.costCenter
+                                select d.costCenter;
+
+            costCenterLst.AddRange(costCenterQry.Distinct());
+            ViewBag.locationCostCenter = new SelectList(costCenterLst);
+
+            var locations = from m in db.Locations
+                         select m;
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                locations = locations.Where(s => s.locationName.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(costCentertxt))
+            {
+                locations = from mc in db.Locations
+                            where mc.costCenter == costCentertxt
+                         select mc;
+            }
+
+            return View(locations);
         }
 
         // GET: Locations/Details/5
@@ -46,7 +71,7 @@ namespace IT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "locationID,locationName,costCenter,unit,businessArea,ladiesSection,suppurtNodeName,accessPermission,distanceFromSupportNode,classification")] Location location)
+        public ActionResult Create([Bind(Include = "locationID,costCenter,locationName,unit,businessArea,ladiesSection,uppurtNodeName,accessPermission,distanceFromSupportNode,classification")] Location location)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +103,7 @@ namespace IT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "locationID,locationName,costCenter,unit,businessArea,ladiesSection,suppurtNodeName,accessPermission,distanceFromSupportNode,classification")] Location location)
+        public ActionResult Edit([Bind(Include = "locationID,costCenter,locationName,unit,businessArea,ladiesSection,uppurtNodeName,accessPermission,distanceFromSupportNode,classification")] Location location)
         {
             if (ModelState.IsValid)
             {

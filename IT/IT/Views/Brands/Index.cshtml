@@ -1,13 +1,22 @@
 ﻿@model IEnumerable<IT.Models.Brand>
 
 @{
-    ViewBag.Title = "Brands";
+    ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
+
+    @using (Html.BeginForm("Index", "Brands", FormMethod.Get))
+    {
+    <p>
+        Brand Name: @Html.TextBox("SearchString") <br />
+        <input type="submit" value="Filter" />
+    </p>
+    }
+    
 </p>
 <table class="table">
     <tr>

@@ -8,9 +8,29 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+
+    @using (Html.BeginForm("Index", "Assets", FormMethod.Get))
+    {
+    <p>
+        Cost Center: @Html.DropDownList("assetCostCenter", "All")
+        Serial Number or Barcode or Service Tag: @Html.TextBox("SearchString")
+        <input type="submit" value="Filter" />
+    </p>
+    }
+
 </p>
 <table class="table">
     <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Model.Item.Brand.brandName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model.Item.itemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model.modelName)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.serialNumber)
         </th>
@@ -18,7 +38,10 @@
             @Html.DisplayNameFor(model => model.barcode)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.serviceTag)
+            @Html.DisplayNameFor(model => model.seviceTag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location.costCenter)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.status)
@@ -27,34 +50,7 @@
             @Html.DisplayNameFor(model => model.remarks)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.costCenter)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.timeStamp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.modelID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.modelName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.weight)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.itemID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.itemName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.brandID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.brandName)
+            @Html.DisplayNameFor(model => model.timestamp)
         </th>
         <th></th>
     </tr>
@@ -62,13 +58,25 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Model.Item.Brand.brandName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model.Item.itemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model.modelName)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.serialNumber)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.barcode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.serviceTag)
+            @Html.DisplayFor(modelItem => item.seviceTag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location.costCenter)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.status)
@@ -77,39 +85,12 @@
             @Html.DisplayFor(modelItem => item.remarks)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.costCenter)
+            @Html.DisplayFor(modelItem => item.timestamp)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.timeStamp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.modelID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.modelName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.weight)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.itemID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.itemName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.brandID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.brandName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.assetID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.assetID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.assetID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.assetlID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.assetlID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.assetlID })
         </td>
     </tr>
 }

@@ -11,6 +11,31 @@
     <h4>Asset</h4>
     <hr />
     <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Model.Item.Brand.brandName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model.Item.Brand.brandName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model.Item.itemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model.Item.itemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model.modelName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model.modelName)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.serialNumber)
         </dt>
@@ -28,11 +53,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.serviceTag)
+            @Html.DisplayNameFor(model => model.seviceTag)
+        </dt>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location.costCenter)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.serviceTag)
+            @Html.DisplayFor(model => model.Location.costCenter)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.seviceTag)
         </dd>
 
         <dt>
@@ -52,83 +85,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.costCenter)
+            @Html.DisplayNameFor(model => model.timestamp)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.costCenter)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.timeStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.timeStamp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.modelID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.modelID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.modelName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.modelName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.weight)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.weight)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.itemID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.itemID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.itemName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.itemName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.brandID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.brandID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.brandName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.brandName)
+            @Html.DisplayFor(model => model.timestamp)
         </dd>
 
     </dl>

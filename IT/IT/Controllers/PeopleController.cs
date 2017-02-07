@@ -12,12 +12,27 @@ namespace IT.Controllers
 {
     public class PeopleController : Controller
     {
-        private PersonDBContext db = new PersonDBContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: People
-        public ActionResult Index()
+        public ActionResult Index(int? id,string searchString)
         {
-            return View(db.Person.ToList());
+            var person = from m in db.People
+                       select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                person = person.Where(s => s.name.Contains(searchString));
+            }
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                person = from mc in db.People
+                         where mc.employeeID == id
+                         select mc;
+            }
+
+            return View(person);
         }
 
         // GET: People/Details/5
@@ -27,7 +42,7 @@ namespace IT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.Person.Find(id);
+            Person person = db.People.Find(id);
             if (person == null)
             {
                 return HttpNotFound();
@@ -46,11 +61,11 @@ namespace IT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,name,title,department,officeNumber,mobileNumber,email")] Person person)
+        public ActionResult Create([Bind(Include = "personID,employeeID,name,title,department,officeNumber,mobileNumber,email")] Person person)
         {
             if (ModelState.IsValid)
             {
-                db.Person.Add(person);
+                db.People.Add(person);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +80,7 @@ namespace IT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.Person.Find(id);
+            Person person = db.People.Find(id);
             if (person == null)
             {
                 return HttpNotFound();
@@ -78,7 +93,7 @@ namespace IT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,name,title,department,officeNumber,mobileNumber,email")] Person person)
+        public ActionResult Edit([Bind(Include = "personID,employeeID,name,title,department,officeNumber,mobileNumber,email")] Person person)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +111,7 @@ namespace IT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.Person.Find(id);
+            Person person = db.People.Find(id);
             if (person == null)
             {
                 return HttpNotFound();
@@ -109,8 +124,8 @@ namespace IT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Person person = db.Person.Find(id);
-            db.Person.Remove(person);
+            Person person = db.People.Find(id);
+            db.People.Remove(person);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

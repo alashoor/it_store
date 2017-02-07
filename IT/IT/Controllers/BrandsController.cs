@@ -12,12 +12,20 @@ namespace IT.Controllers
 {
     public class BrandsController : Controller
     {
-        private BrandDBContext db = new BrandDBContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Brands
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.Brands.ToList());
+            var brand = from m in db.Brands
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                brand = brand.Where(s => s.brandName.Contains(searchString));
+            }
+
+            return View(brand);
         }
 
         // GET: Brands/Details/5

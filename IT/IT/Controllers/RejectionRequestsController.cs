@@ -12,12 +12,37 @@ namespace IT.Controllers
 {
     public class RejectionRequestsController : Controller
     {
-        private RejectionRequestsDBContext db = new RejectionRequestsDBContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: RejectionRequests
-        public ActionResult Index()
+        public ActionResult Index(string costCentertxt, string searchString)
         {
-            return View(db.RejectionRequests.ToList());
+            var costCenterLst = new List<string>();
+
+            var costCenterQry = from d in db.Locations
+                                orderby d.costCenter
+                                select d.costCenter;
+
+            costCenterLst.AddRange(costCenterQry.Distinct());
+            ViewBag.rejectionRequestsCostCenter = new SelectList(costCenterLst);
+
+            var rejectionRequests = from m in db.RejectionRequests
+                         select m;
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                rejectionRequests = rejectionRequests.Where(s => s.serialNumber.Contains(searchString) || s.barcode.Contains(searchString) || s.serviceTag.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(costCentertxt))
+            {
+                rejectionRequests = from mc in db.RejectionRequests
+                         where mc.Location.costCenter == costCentertxt
+                         select mc;
+            }
+
+            return View(rejectionRequests);
         }
 
         // GET: RejectionRequests/Details/5
@@ -27,17 +52,18 @@ namespace IT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RejectionRequests rejectionRequests = db.RejectionRequests.Find(id);
-            if (rejectionRequests == null)
+            RejectionRequest rejectionRequest = db.RejectionRequests.Find(id);
+            if (rejectionRequest == null)
             {
                 return HttpNotFound();
             }
-            return View(rejectionRequests);
+            return View(rejectionRequest);
         }
 
         // GET: RejectionRequests/Create
         public ActionResult Create()
         {
+            ViewBag.locationID = new SelectList(db.Locations, "locationID", "costCenter");
             return View();
         }
 
@@ -46,16 +72,17 @@ namespace IT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "rejectionRequestsID,serialNumber,barcode,serviceTag,businessArea,justification,costCenter,timeStamp")] RejectionRequests rejectionRequests)
+        public ActionResult Create([Bind(Include = "rejectionRequestsID,serialNumber,barcode,serviceTag,businessArea,justification,locationID,timestamp")] RejectionRequest rejectionRequest)
         {
             if (ModelState.IsValid)
             {
-                db.RejectionRequests.Add(rejectionRequests);
+                db.RejectionRequests.Add(rejectionRequest);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(rejectionRequests);
+            ViewBag.locationID = new SelectList(db.Locations, "locationID", "costCenter", rejectionRequest.locationID);
+            return View(rejectionRequest);
         }
 
         // GET: RejectionRequests/Edit/5
@@ -65,12 +92,13 @@ namespace IT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RejectionRequests rejectionRequests = db.RejectionRequests.Find(id);
-            if (rejectionRequests == null)
+            RejectionRequest rejectionRequest = db.RejectionRequests.Find(id);
+            if (rejectionRequest == null)
             {
                 return HttpNotFound();
             }
-            return View(rejectionRequests);
+            ViewBag.locationID = new SelectList(db.Locations, "locationID", "costCenter", rejectionRequest.locationID);
+            return View(rejectionRequest);
         }
 
         // POST: RejectionRequests/Edit/5
@@ -78,15 +106,16 @@ namespace IT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "rejectionRequestsID,serialNumber,barcode,serviceTag,businessArea,justification,costCenter,timeStamp")] RejectionRequests rejectionRequests)
+        public ActionResult Edit([Bind(Include = "rejectionRequestsID,serialNumber,barcode,serviceTag,businessArea,justification,locationID,timestamp")] RejectionRequest rejectionRequest)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(rejectionRequests).State = EntityState.Modified;
+                db.Entry(rejectionRequest).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(rejectionRequests);
+            ViewBag.locationID = new SelectList(db.Locations, "locationID", "costCenter", rejectionRequest.locationID);
+            return View(rejectionRequest);
         }
 
         // GET: RejectionRequests/Delete/5
@@ -96,12 +125,12 @@ namespace IT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RejectionRequests rejectionRequests = db.RejectionRequests.Find(id);
-            if (rejectionRequests == null)
+            RejectionRequest rejectionRequest = db.RejectionRequests.Find(id);
+            if (rejectionRequest == null)
             {
                 return HttpNotFound();
             }
-            return View(rejectionRequests);
+            return View(rejectionRequest);
         }
 
         // POST: RejectionRequests/Delete/5
@@ -109,8 +138,8 @@ namespace IT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            RejectionRequests rejectionRequests = db.RejectionRequests.Find(id);
-            db.RejectionRequests.Remove(rejectionRequests);
+            RejectionRequest rejectionRequest = db.RejectionRequests.Find(id);
+            db.RejectionRequests.Remove(rejectionRequest);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

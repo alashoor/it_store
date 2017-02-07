@@ -12,12 +12,20 @@ namespace IT.Controllers
 {
     public class ItemsController : Controller
     {
-        private ItemDBContext db = new ItemDBContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Items
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.Items.ToList());
+            var item = from m in db.Items
+                        select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                item = item.Where(s => s.itemName.Contains(searchString));
+            }
+
+            return View(item);
         }
 
         // GET: Items/Details/5
@@ -38,6 +46,7 @@ namespace IT.Controllers
         // GET: Items/Create
         public ActionResult Create()
         {
+            ViewBag.brandID = new SelectList(db.Brands, "brandID", "brandName");
             return View();
         }
 
@@ -46,7 +55,7 @@ namespace IT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "itemID,itemName,brandID,brandName")] Item item)
+        public ActionResult Create([Bind(Include = "itemID,brandID,itemName")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +64,7 @@ namespace IT.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.brandID = new SelectList(db.Brands, "brandID", "brandName", item.brandID);
             return View(item);
         }
 
@@ -70,6 +80,7 @@ namespace IT.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.brandID = new SelectList(db.Brands, "brandID", "brandName", item.brandID);
             return View(item);
         }
 
@@ -78,7 +89,7 @@ namespace IT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "itemID,itemName,brandID,brandName")] Item item)
+        public ActionResult Edit([Bind(Include = "itemID,brandID,itemName")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +97,7 @@ namespace IT.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.brandID = new SelectList(db.Brands, "brandID", "brandName", item.brandID);
             return View(item);
         }
 

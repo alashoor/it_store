@@ -12,12 +12,37 @@ namespace IT.Controllers
 {
     public class AssetsController : Controller
     {
-        private AssetDBContext db = new AssetDBContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Assets
-        public ActionResult Index()
+        public ActionResult Index(string costCentertxt, string searchString)
         {
-            return View(db.Asset.ToList());
+            var costCenterLst = new List<string>();
+
+            var costCenterQry = from d in db.Locations
+                           orderby d.costCenter
+                           select d.costCenter;
+
+            costCenterLst.AddRange(costCenterQry.Distinct());
+            ViewBag.assetCostCenter = new SelectList(costCenterLst);
+
+            var assets = from m in db.Assets
+                         select m;
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                assets = assets.Where(s => s.serialNumber.Contains(searchString) || s.barcode.Contains(searchString) || s.seviceTag.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(costCentertxt))
+            {
+                assets = from mc in db.Assets
+                         where mc.Location.costCenter == costCentertxt
+                         select mc;
+            }
+
+            return View(assets);
         }
 
         // GET: Assets/Details/5
@@ -27,7 +52,7 @@ namespace IT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asset asset = db.Asset.Find(id);
+            Asset asset = db.Assets.Find(id);
             if (asset == null)
             {
                 return HttpNotFound();
@@ -38,6 +63,8 @@ namespace IT.Controllers
         // GET: Assets/Create
         public ActionResult Create()
         {
+            ViewBag.locationID = new SelectList(db.Locations, "locationID", "costCenter");
+            ViewBag.modelID = new SelectList(db.Models, "modelID", "modelName");
             return View();
         }
 
@@ -46,15 +73,17 @@ namespace IT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "assetID,serialNumber,barcode,serviceTag,status,remarks,costCenter,timeStamp,modelID,modelName,weight,price,itemID,itemName,brandID,brandName")] Asset asset)
+        public ActionResult Create([Bind(Include = "assetlID,modelID,serialNumber,barcode,seviceTag,status,remarks,locationID,timestamp")] Asset asset)
         {
             if (ModelState.IsValid)
             {
-                db.Asset.Add(asset);
+                db.Assets.Add(asset);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.locationID = new SelectList(db.Locations, "locationID", "costCenter", asset.locationID);
+            ViewBag.modelID = new SelectList(db.Models, "modelID", "modelName", asset.modelID);
             return View(asset);
         }
 
@@ -65,11 +94,13 @@ namespace IT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asset asset = db.Asset.Find(id);
+            Asset asset = db.Assets.Find(id);
             if (asset == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.locationID = new SelectList(db.Locations, "locationID", "costCenter", asset.locationID);
+            ViewBag.modelID = new SelectList(db.Models, "modelID", "modelName", asset.modelID);
             return View(asset);
         }
 
@@ -78,7 +109,7 @@ namespace IT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "assetID,serialNumber,barcode,serviceTag,status,remarks,costCenter,timeStamp,modelID,modelName,weight,price,itemID,itemName,brandID,brandName")] Asset asset)
+        public ActionResult Edit([Bind(Include = "assetlID,modelID,serialNumber,barcode,seviceTag,status,remarks,locationID,timestamp")] Asset asset)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +117,8 @@ namespace IT.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.locationID = new SelectList(db.Locations, "locationID", "costCenter", asset.locationID);
+            ViewBag.modelID = new SelectList(db.Models, "modelID", "modelName", asset.modelID);
             return View(asset);
         }
 
@@ -96,7 +129,7 @@ namespace IT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asset asset = db.Asset.Find(id);
+            Asset asset = db.Assets.Find(id);
             if (asset == null)
             {
                 return HttpNotFound();
@@ -109,8 +142,8 @@ namespace IT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Asset asset = db.Asset.Find(id);
-            db.Asset.Remove(asset);
+            Asset asset = db.Assets.Find(id);
+            db.Assets.Remove(asset);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
