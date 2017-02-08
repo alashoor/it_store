@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<IT.Models.RejectionRequest>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Rejection Requests";
 }
 
-<h2>Index</h2>
+<h2>Rejection Requests</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -40,7 +40,7 @@
             @Html.DisplayNameFor(model => model.justification)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.timestamp)
+            @Html.DisplayNameFor(model => model.Timestamp)
         </th>
         <th></th>
     </tr>
@@ -66,7 +66,7 @@
             @Html.DisplayFor(modelItem => item.justification)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.timestamp)
+            @Html.DisplayFor(modelItem => item.Timestamp)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.rejectionRequestsID }) |

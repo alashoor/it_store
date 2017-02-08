@@ -33,11 +33,32 @@ namespace IT.Models
 
         public int? locationID { get; set; }
 
-        [Display(Name = "Timestamp")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Column(TypeName = "date")]
-        public DateTime? timestamp { get; set; }
+        private DateTime _timestamp = DateTime.Now;
+        [Display(Name = "Timestamp")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Timestamp
+
+        {
+
+            get
+
+            {
+
+                return _timestamp;
+
+            }
+
+            set
+
+            {
+
+                _timestamp = value;
+
+            }
+
+        }
 
         public virtual Location Location { get; set; }
     }

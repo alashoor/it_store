@@ -15,21 +15,22 @@ namespace IT.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
         public ActionResult Item()
         {
             ViewBag.Message = "Your Items page.";
 
+            return View();
+        }
+
+        public ActionResult Reports()
+        {
             return View();
         }
     }

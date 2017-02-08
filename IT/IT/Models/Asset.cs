@@ -37,11 +37,44 @@ namespace IT.Models
         [Display(Name = "Cost Center")]
         public int? locationID { get; set; }
 
-        [Display(Name = "Timestamp")]
+        [Display(Name = "Ticket Number")]
+        [StringLength(50)]
+        public string ticketNumber { get; set; }
+
+        [Display(Name = "User Name")]
+        [StringLength(50)]
+        public string userName { get; set; }
+
+        [Display(Name = "DHL Policy")]
+        [StringLength(50)]
+        public string DHLPolicy { get; set; }
+
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Column(TypeName = "date")]
-        public DateTime? timestamp { get; set; }
+        private DateTime _timestamp = DateTime.Now;
+        [Display(Name = "Timestamp")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Timestamp
+
+        {
+
+            get
+
+            {
+
+                return _timestamp;
+
+            }
+
+            set
+
+            {
+
+                _timestamp = value;
+
+            }
+
+        }
 
         public virtual Location Location { get; set; }
 

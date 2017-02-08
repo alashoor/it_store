@@ -1,0 +1,114 @@
+﻿@model IEnumerable<IT.Models.Asset>
+
+@{
+    ViewBag.Title = "Dispatch";
+}
+
+<h2>Dispatchs</h2>
+
+<p>
+    @using (Html.BeginForm("Index", "Assets", FormMethod.Get))
+    {
+    <p>
+        Cost Center: @Html.DropDownList("assetCostCenter", "All")
+        Serial Number or Barcode or Service Tag: @Html.TextBox("SearchString")
+        <input type="submit" value="Filter" />
+    </p>
+    }
+
+    </p>
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Model.Item.Brand.brandName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model.Item.itemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model.modelName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.serialNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.barcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.seviceTag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.remarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location.costCenter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ticketNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.userName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DHLPolicy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Timestamp)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model.Item.Brand.brandName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model.Item.itemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model.modelName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.serialNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.barcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.seviceTag)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.remarks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.costCenter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ticketNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DHLPolicy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Timestamp)
+                </td>
+                <td>
+                    @Html.ActionLink("Dispatch", "Edit", new { id = item.assetlID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.assetlID }) |
+                </td>
+            </tr>
+        }
+
+    </table>
